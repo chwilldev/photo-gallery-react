@@ -1,11 +1,11 @@
 export type originImage = {
-  urls: { full: string };
+  urls: { full: string, thumb: string; };
   width: number;
   height: number;
 };
 
-export const fetchPhotosFromServer = async (): Promise<originImage[]> => {
-  const res = await fetch("https://api.unsplash.com/photos/?per-page=15", {
+export const fetchPhotosFromServer = async (pageNumber: number): Promise<originImage[]> => {
+  const res = await fetch(`https://api.unsplash.com/photos/?page=${pageNumber}&per_page=20`, {
     method: "GET",
     mode: "cors",
     cache: "no-cache",
