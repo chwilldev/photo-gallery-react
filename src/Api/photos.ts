@@ -4,8 +4,8 @@ export type originImage = {
   height: number;
 };
 
-export const fetchImages = async (): Promise<originImage[]> => {
-  const res = await fetch("https://api.unsplash.com/photos", {
+export const fetchPhotosFromServer = async (): Promise<originImage[]> => {
+  const res = await fetch("https://api.unsplash.com/photos/?per-page=15", {
     method: "GET",
     mode: "cors",
     cache: "no-cache",
