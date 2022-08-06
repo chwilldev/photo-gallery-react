@@ -7,23 +7,21 @@ import React, {
 } from "react";
 import { PhotoAlbum } from "react-photo-album";
 
-import { fetchPhotosFromServer } from "../Api/photos";
-import { pickPhotoUrlFromOriginPhotoObject, Photo } from "../Helper";
-import ImagePopupViewer from "../Components/ImagePopupViewer";
-import "./Home.css";
+import { fetchPhotosFromServer } from "./api/photos";
+import { pickPhotoUrlFromOriginPhotoObject, Photo } from "./utils";
+import ImagePopupViewer from "../../Components/ImagePopupViewer";
 
 function PhotoListPage() {
   const [photos, setPhotos] = useState<Photo[]>([]);
-  const photosRef = useRef(photos);
-
-  photosRef.current = photos;
-
   const [popupStatus, setPopupStatus] = useState({
     status: false,
     index: 0,
   });
-
   const [pageNumber, setPageNumber] = useState(0);
+
+  const photosRef = useRef(photos);
+
+  photosRef.current = photos;
 
   const fetchPhotos = useCallback(
     async (pageNumber: number) => {
@@ -55,13 +53,6 @@ function PhotoListPage() {
     return window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const setPopupViewerStatus = (statusObject: {
-    status: boolean;
-    index: number;
-  }) => {
-    setPopupStatus({ ...statusObject });
-  };
-
   const photoUrls = useMemo(() => {
     return photos.map((photo) => photo.full_src as string);
   }, [photos]);
@@ -72,16 +63,13 @@ function PhotoListPage() {
         layout="masonry"
         photos={photos}
         onClick={(event, photo, index) => {
-          setPopupStatus({
-            status: true,
-            index,
-          });
+          setPopupStatus({ index, status: true });
         }}
       />
       <ImagePopupViewer
         photos={photoUrls}
         popupViewerStatus={popupStatus}
-        setPopupViewerStatus={setPopupViewerStatus}
+        setPopupViewerStatus={setPopupStatus}
       />
     </>
   );

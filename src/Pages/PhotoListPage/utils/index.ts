@@ -1,4 +1,4 @@
-import { originImage } from "../Api/photos";
+import { originPhoto } from "../api/photos";
 
 export type Photo = {
   src: string;
@@ -8,9 +8,9 @@ export type Photo = {
 };
 
 export const pickPhotoUrlFromOriginPhotoObject = (
-  originImageData: originImage[]
+  originImageData: originPhoto[]
 ): Photo[] =>
-  originImageData.map((data: originImage) => ({
+  originImageData.map((data: originPhoto) => ({
     src: data.urls.thumb,
     width: data.width,
     height: data.height,
