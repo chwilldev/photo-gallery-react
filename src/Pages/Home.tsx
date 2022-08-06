@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../logo.svg";
 import "./Home.css";
 
-function home() {
+function Home() {
   return (
     <div className="App">
       <header className="App-header">
@@ -23,4 +23,4 @@ function home() {
   );
 }
 
-export default home;
+export default Home;
